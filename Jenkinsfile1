@@ -10,6 +10,12 @@ pipeline {
         SCANNER_HOME= tool 'sonar-scanner'
     }
 
+    
+    stages{
+        stage('Code'){
+            steps {
+                git url: 'https://github.com/kannancloud001/BoardgameListingWebApp.git', branch: 'main'
+
     stages {        
         stage('Compile') {
             steps {
