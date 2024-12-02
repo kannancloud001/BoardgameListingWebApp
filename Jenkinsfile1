@@ -7,16 +7,17 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME= tool 'sonar-scanner'
+        SCANNER_HOME = tool 'sonar-scanner'
+        SONARQUBE_URL = 'http://192.168.1.102/:9000'
     }
-
     
-    stages{
-        stage('Code'){
+    stages {
+        stage('Checkout Code') {
             steps {
                 git url: 'https://github.com/kannancloud001/BoardgameListingWebApp.git', branch: 'main'
-
-    stages {        
+            }
+        }
+        
         stage('Compile') {
             steps {
                 sh "mvn compile"
@@ -29,10 +30,16 @@ pipeline {
             }
         }
         
-        stage('SonarQube') {
+        stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Boardgame -Dsonar.projectKey=Boardgame -Dsonar.java.binaries=target/classes '''
+                    sh '''
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectName=Boardgame \
+                        -Dsonar.projectKey=Boardgame \
+                        -Dsonar.java.binaries=target/classes \
+                        -Dsonar.host.url=$SONARQUBE_URL
+                    '''
                 }
             }
         }
@@ -41,6 +48,12 @@ pipeline {
             steps {
                 sh "mvn package"
             }
+        }
+    }
+    
+    post {
+        always {
+            cleanWs()
         }
     }
 }
