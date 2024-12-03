@@ -49,11 +49,6 @@ pipeline {
                 sh "mvn package"
             }
         }
-    }
+    }  
     
-    post {
-        always {
-            cleanWs()
-        }
-    }
 }
