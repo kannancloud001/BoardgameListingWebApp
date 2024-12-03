@@ -34,7 +34,7 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonar') {
+                withSonarQubeEnv('sonar-scanner') {
                     sh '''
                         -Dsonar.projectName=Boardgame \
                         -Dsonar.projectKey=Boardgame \
@@ -57,7 +57,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("myapp:${env.BUILD_ID}")
+                    docker.build("Boardgame:${env.BUILD_ID}")
                 }
             }
         }
@@ -66,7 +66,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("myapp:${env.BUILD_ID}").push()
+                        docker.image("Boardgame:${env.BUILD_ID}").push()
                     }
                 }
             }
