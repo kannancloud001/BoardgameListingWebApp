@@ -80,10 +80,8 @@ pipeline {
                 script {
                    // Deploy to Nexus repository
                    sh "mvn deploy:deploy-file -Dfile=target/my-app.jar -DrepositoryId=nexus-repo -Durl=http://192.168.1.102:8081/repository/maven-releases/"
+                }
+            }
         }
     }
-}
-
-    }  
-    
 }
