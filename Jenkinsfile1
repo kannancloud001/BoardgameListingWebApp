@@ -7,12 +7,12 @@ pipeline {
     }
     
     environment {
-        DOCKER_REGISTRY = '192.168.1.102:8081/repository/docker-hosted/' // Replace with your actual Nexus URL and repository name
+        DOCKER_REGISTRY = '192.168.1.102:8082/repository/docker-hosted' // Replace with your actual Nexus URL and repository name
         DOCKER_CREDENTIALS_ID = 'nexus-docker' // Replace with your Jenkins credentials ID for Nexus
         SONARQUBE_URL = 'http://192.168.1.102:9000'
         SONARQUBE_TOKEN = 'sonar-token'
-        IMAGE_NAME = 'boardgame'                   // Docker image name
-        IMAGE_TAG = 'v1.0'
+        IMAGE_NAME = 'boardgame' // Docker image name
+        IMAGE_TAG = 'latest'
     }
     
     stages {
@@ -56,14 +56,16 @@ pipeline {
                 }
             }
         }
-        stage('Login to Nexus') {
+        stage('Docker Login') {
             steps {
-                script {
-                    // Login to Nexus repository
-                    sh "docker login ${DOCKER_REGISTRY} -u admin -p adminpassword"
-                }
+               script {
+                    withCredentials([usernamePassword(credentialsId: 'nexus-docker', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh "echo $PASSWORD | docker login 192.168.1.102:8082/repository/docker-hosted -u $USERNAME --password-stdin"
             }
         }
+    }
+}
+
         stage('Push Docker Image') {
             steps {
                 script {
@@ -74,10 +76,10 @@ pipeline {
         }
         
         stage('Maven Deploy') {
-           steps {
-              script {
-                 // Deploy to Nexus repository
-                 sh "mvn deploy:deploy-file -Dfile=target/my-app.jar -DrepositoryId=nexus-repo -Durl=http://192.168.1.102:8081/repository/maven-releases/"
+            steps {
+                script {
+                   // Deploy to Nexus repository
+                   sh "mvn deploy:deploy-file -Dfile=target/my-app.jar -DrepositoryId=nexus-repo -Durl=http://192.168.1.102:8081/repository/maven-releases/"
         }
     }
 }
