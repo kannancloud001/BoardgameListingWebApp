@@ -36,12 +36,13 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonar-scanner') {
                     sh '''
+                    mvn sonar:sona \    
                         -Dsonar.projectName=Boardgame \
                         -Dsonar.projectKey=Boardgame \
                         -Dsonar.java.binaries=target/classes \
                         -Dsonar.host.url=$SONARQUBE_URL
-                        -Dsonar.login=$SONARQUBE-TOKEN 
-                        'mvn sonar:sona'
+                        -Dsonar.login=$SONARQUBE-TOKEN
+                        
                     '''
                 }
             }
