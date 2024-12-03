@@ -51,7 +51,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("Boardgame:${env.BUILD_ID}")
+                    sh "sudo docker.build("Boardgame:${env.BUILD_ID}")"
                 }
             }
         }
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIALS_ID}") {
-                        docker.image("Boardgame:${env.BUILD_ID}").push()
+                        sh "sudo docker.image("Boardgame:${env.BUILD_ID}").push()"
                     }
                 }
             }
