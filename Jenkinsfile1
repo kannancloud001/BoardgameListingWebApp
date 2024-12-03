@@ -11,7 +11,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'nexus-docker' // Replace with your Jenkins credentials ID for Nexus
         SONARQUBE_URL = 'http://192.168.1.102:9000'
         SONARQUBE_TOKEN = 'sonar-token'
-        IMAGE_NAME = 'Boardgame'                   // Docker image name
+        IMAGE_NAME = 'boardgame'                   // Docker image name
         IMAGE_TAG = 'v1.0'
     }
     
