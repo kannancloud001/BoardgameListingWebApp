@@ -7,10 +7,12 @@ pipeline {
     }
     
     environment {
-        DOCKER_REGISTRY = '192.168.1.102:8082' // Replace with your actual Nexus URL and repository name
+        DOCKER_REGISTRY = '192.168.1.102:8081/repository/docker-hosted/' // Replace with your actual Nexus URL and repository name
         DOCKER_CREDENTIALS_ID = 'nexus-docker' // Replace with your Jenkins credentials ID for Nexus
         SONARQUBE_URL = 'http://192.168.1.102:9000'
         SONARQUBE_TOKEN = 'sonar-token'
+        IMAGE_NAME = 'Boardgame'                   // Docker image name
+        IMAGE_TAG = 'v1.0'
     }
     
     stages {
@@ -34,13 +36,11 @@ pipeline {
         
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('sonar-scanner') {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONARQUBE_TOKEN')]) {
                     sh 'mvn sonar:sonar -Dsonar.projectName=Boardgame -Dsonar.projectKey=Boardgame -Dsonar.java.binaries=target/classes -Dsonar.host.url=http://192.168.1.102:9000'
-
                 }
             }
         }
-        
          
         stage('Build') {
             steps {
@@ -51,20 +51,37 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "echo $SUDO_PASS | sudo -S docker.build Boardgame:${env.BUILD_ID} ."
+                    // Build the Docker image
+                    sh "docker build -t ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG} ."
+                }
+            }
+        }
+        stage('Login to Nexus') {
+            steps {
+                script {
+                    // Login to Nexus repository
+                    sh "docker login ${DOCKER_REGISTRY} -u admin -p adminpassword"
+                }
+            }
+        }
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Push the Docker image to Nexus
+                    sh "docker push ${DOCKER_REGISTRY}/${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
         
-        stage('Push Docker Image to Nexus') {
-            steps {
-                script {
-                    docker.withRegistry("https://${DOCKER_REGISTRY}", "${DOCKER_CREDENTIALS_ID}") {
-                        sh "echo $SUDO_PASS | sudo -S docker.image Boardgame:${env.BUILD_ID}.push()"
-                    }
-                }
-            }
+        stage('Maven Deploy') {
+    steps {
+        script {
+            // Deploy to Nexus repository
+            sh "mvn deploy:deploy-file -Dfile=target/my-app.jar -DrepositoryId=nexus-repo -Durl=http://192.168.1.102:8081/repository/maven-releases/"
         }
+    }
+}
+
     }  
     
 }
