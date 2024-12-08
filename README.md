@@ -1,4 +1,4 @@
-# BoardgameListingWebApp
+![1733657442511](https://github.com/user-attachments/assets/f55ce7c9-aacc-4b4e-8abf-5a9ccd73d081)# BoardgameListingWebApp
 
 ## Description 
 
@@ -59,3 +59,28 @@ This web application displays lists of board games and their reviews. While anyo
   - username: bugs    |     password: bunny (user role)
   - username: daffy   |     password: duck  (manager role)
 5. You can also sign-up as a new user and customize your role to play with the application! 😊
+
+![Screenshot 2024-12-04 181739](https://github.com/user-attachments/assets/b3a979a2-e5c4-4101-83e7-570fb8481b7f)
+
+
+ ![1733657442511](https://github.com/user-attachments/assets/c2408c2f-9258-4dc2-8ff3-882169625507)
+
+
+![1733657442524](https://github.com/user-attachments/assets/e39326f8-bc7c-4783-b5e9-e7e069abeeed)
+
+![1733657442546](https://github.com/user-attachments/assets/29ede156-2c26-4eea-ae4c-2a04ba29fa38)
+
+![1733657442566](https://github.com/user-attachments/assets/3aa86f04-6130-494b-835a-6a9bb929678f)
+
+![1733657442443](https://github.com/user-attachments/assets/0d3b030a-13a1-4954-9d57-50bbcab25b12)
+
+![1733657442498](https://github.com/user-attachments/assets/630cc2c4-881c-4c1b-8fb7-c387399a5d0c)
+
+
+
+
+
+
+
+
+
