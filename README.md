@@ -9,7 +9,7 @@ This web application displays lists of board games and their reviews. While anyo
 
 - Java
 - Spring Boot
-- Amazon Web Services(AWS) EC2
+- Windows Virtual Box, (ubuntu 22)
 - Thymeleaf
 - Thymeleaf Fragments
 - HTML5
@@ -22,6 +22,11 @@ This web application displays lists of board games and their reviews. While anyo
 - Spring Security
 - Twitter Bootstrap
 - Maven
+- jenkins
+- Docker
+- Sonarqube
+- Sonatype Nexus
+
 
 ## Features
 
@@ -34,14 +39,17 @@ This web application displays lists of board games and their reviews. While anyo
   - Non-members only can see the boardgame lists and reviews
   - Users can add board games and write reviews
   - Managers can edit and delete the reviews
-- Deployed the application on AWS EC2
+- Deployed the application on Windows Virtual box virtual machine 
 - JUnit test framework for unit testing
 - Spring MVC best practices to segregate views, controllers, and database packages
 - JDBC for database connectivity and interaction
 - CRUD (Create, Read, Update, Delete) operations for managing data in the database
 - Schema.sql file to customize the schema and input initial data
 - Thymeleaf Fragments to reduce redundancy of repeating HTML elements (head, footer, navigation)
-
+- Building Docker image as Multi stage for Reduce Image size
+- Soanrqube Analysis for Code Quality
+- Builded using Maven
+- Packaged using Docker and Pushed Nexus Docker Registry...
 ## How to Run
 
 1. Clone the repository
