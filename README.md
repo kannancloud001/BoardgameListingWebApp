@@ -91,8 +91,7 @@ This web application displays lists of board games and their reviews. While anyo
     metrics_path: "prometheus"
     static_configs:
       - targets: ["192.168.1.106:8081"]
-
-  - job_name: "node"
+       - job_name: "node"
     static_configs:
       - targets: ["192.168.1.106:9100"]
 
