@@ -1,4 +1,4 @@
-![1733657442511](https://github.com/user-attachments/assets/f55ce7c9-aacc-4b4e-8abf-5a9ccd73d081)# BoardgameListingWebApp
+# BoardgameListingWebApp
 
 ## Description 
 
