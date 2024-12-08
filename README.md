@@ -26,7 +26,8 @@ This web application displays lists of board games and their reviews. While anyo
 - Docker
 - Sonarqube
 - Sonatype Nexus
-
+- prometheus
+- grafana 
 
 ## Features
 
@@ -59,6 +60,41 @@ This web application displays lists of board games and their reviews. While anyo
   - username: bugs    |     password: bunny (user role)
   - username: daffy   |     password: duck  (manager role)
 5. You can also sign-up as a new user and customize your role to play with the application! 😊
+
+## Tools we use in ubuntu-22
+ - https://github.com/kannancloud001/Devops-Tools-Setup.git
+  
+## Commands i Used
+ - jenkins port changed
+   ```
+    sudo nano /lib/systemd/system/jenkins.service
+    Environment="JENKINS_PORT=8080 > 8081"
+
+    sudo nano /etc/default/jenkins
+    HTTP_PORT=8080 > 8081
+ - Providing Proper Permission
+   ```
+      sudo usermod -aG docker jenkins
+
+      jenkins ALL=ALL NOPASSWD: /usr/bin/docker
+
+ - insecure reistry
+   ```
+      sudo nano /etc/docker/daemon.json
+      {
+        "insecure-registries": ["192.168.1.102:8082"]
+      }
+      docker login http://192.168.1.102:8082
+  - prometeus confiure
+    ```
+        - job_name: "jenkins"
+    metrics_path: "prometheus"
+    static_configs:
+      - targets: ["192.168.1.106:8081"]
+
+  - job_name: "node"
+    static_configs:
+      - targets: ["192.168.1.106:9100"]
 
 ![Screenshot 2024-12-04 181739](https://github.com/user-attachments/assets/b3a979a2-e5c4-4101-83e7-570fb8481b7f)
 
