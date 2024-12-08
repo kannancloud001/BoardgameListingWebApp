@@ -50,7 +50,7 @@ This web application displays lists of board games and their reviews. While anyo
 - Building Docker image as Multi stage for Reduce Image size
 - Soanrqube Analysis for Code Quality
 - Builded using Maven
-- Packaged using Docker and Pushed Nexus Docker Registry...
+- Packaged using Docker and Pushed to Nexus Docker Registry...
 ## How to Run
 
 1. Clone the repository
@@ -61,10 +61,14 @@ This web application displays lists of board games and their reviews. While anyo
   - username: daffy   |     password: duck  (manager role)
 5. You can also sign-up as a new user and customize your role to play with the application! 😊
 
+
 ## Tools we use in ubuntu-22
+
  - https://github.com/kannancloud001/Devops-Tools-Setup.git
+
   
 ## Commands i Used
+
  - jenkins port changed
    ```
     sudo nano /lib/systemd/system/jenkins.service
@@ -72,6 +76,8 @@ This web application displays lists of board games and their reviews. While anyo
 
     sudo nano /etc/default/jenkins
     HTTP_PORT=8080 > 8081
+
+   
  - Providing Proper Permission
    ```
       sudo usermod -aG docker jenkins
@@ -85,8 +91,10 @@ This web application displays lists of board games and their reviews. While anyo
         "insecure-registries": ["192.168.1.102:8082"]
       }
       docker login http://192.168.1.102:8082
-  - prometeus confiure
+   
+  - prometheus configure
     ```
+      nano /etc/prometheus/prometheus.yml
         - job_name: "jenkins"
     metrics_path: "prometheus"
     static_configs:
@@ -94,6 +102,10 @@ This web application displays lists of board games and their reviews. While anyo
        - job_name: "node"
     static_configs:
       - targets: ["192.168.1.106:9100"]
+
+
+
+
 
 ![Screenshot 2024-12-04 181739](https://github.com/user-attachments/assets/b3a979a2-e5c4-4101-83e7-570fb8481b7f)
 
